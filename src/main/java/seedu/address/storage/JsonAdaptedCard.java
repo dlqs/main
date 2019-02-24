@@ -10,11 +10,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.card.Address;
-import seedu.address.model.card.Answer;
-import seedu.address.model.card.Card;
-import seedu.address.model.card.Email;
-import seedu.address.model.card.Question;
+import seedu.address.model.card.*;
+import seedu.address.model.card.Score;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -27,7 +24,7 @@ class JsonAdaptedCard {
     private final String question;
     private final String answer;
     private final String email;
-    private final String address;
+    private final String score;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -35,12 +32,12 @@ class JsonAdaptedCard {
      */
     @JsonCreator
     public JsonAdaptedCard(@JsonProperty("question") String question, @JsonProperty("answer") String answer,
-                           @JsonProperty("email") String email, @JsonProperty("address") String address,
+                           @JsonProperty("email") String email, @JsonProperty("score") String score,
                            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.question = question;
         this.answer = answer;
         this.email = email;
-        this.address = address;
+        this.score = score;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -53,7 +50,7 @@ class JsonAdaptedCard {
         question = source.getQuestion().fullQuestion;
         answer = source.getAnswer().value;
         email = source.getEmail().value;
-        address = source.getAddress().value;
+        score = source.getScore().toString();
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -95,13 +92,13 @@ class JsonAdaptedCard {
         }
         final Email modelEmail = new Email(email);
 
-        if (address == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
+        if (score == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Score.class.getSimpleName()));
         }
-        if (!Address.isValidAddress(address)) {
-            throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
+        if (!Score.isValidScore(score)) {
+            throw new IllegalValueException(Score.MESSAGE_CONSTRAINTS);
         }
-        final Address modelAddress = new Address(address);
+        final Score modelAddress = new Score(score);
 
         final Set<Tag> modelTags = new HashSet<>(cardTags);
         return new Card(modelQuestion, modelAnswer, modelEmail, modelAddress, modelTags);
