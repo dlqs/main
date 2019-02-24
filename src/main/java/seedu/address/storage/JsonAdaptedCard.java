@@ -8,11 +8,15 @@ import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.card.*;
+import seedu.address.model.card.Answer;
+import seedu.address.model.card.Card;
+import seedu.address.model.card.Email;
+import seedu.address.model.card.Question;
 import seedu.address.model.card.Score;
 import seedu.address.model.tag.Tag;
+
+import javafx.util.Pair;
 
 /**
  * Jackson-friendly version of {@link Card}.
@@ -24,7 +28,7 @@ class JsonAdaptedCard {
     private final String question;
     private final String answer;
     private final String email;
-    private final String score;
+    private final Pair<Integer, Integer> score;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -32,7 +36,7 @@ class JsonAdaptedCard {
      */
     @JsonCreator
     public JsonAdaptedCard(@JsonProperty("question") String question, @JsonProperty("answer") String answer,
-                           @JsonProperty("email") String email, @JsonProperty("score") String score,
+                           @JsonProperty("email") String email, @JsonProperty("score") Pair<Integer, Integer> score,
                            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.question = question;
         this.answer = answer;
@@ -50,7 +54,7 @@ class JsonAdaptedCard {
         question = source.getQuestion().fullQuestion;
         answer = source.getAnswer().value;
         email = source.getEmail().value;
-        score = source.getScore().toString();
+        score = source.getScore().value;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
