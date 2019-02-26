@@ -19,18 +19,19 @@ public class Card {
     private final Question question;
     private final Answer answer;
     private final Email email;
+    private final Score score;
 
     // Data fields
-    private final Score score = new Score(0, 0);
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Card(Question question, Answer answer, Email email, Set<Tag> tags) {
+    public Card(Question question, Answer answer, Email email, Score score, Set<Tag> tags) {
         requireAllNonNull(question, answer, email, tags);
         this.question = question;
         this.answer = answer;
+        this.score = score;
         this.email = email;
         this.tags.addAll(tags);
     }
