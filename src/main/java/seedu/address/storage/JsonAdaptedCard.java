@@ -16,8 +16,6 @@ import seedu.address.model.card.Question;
 import seedu.address.model.card.Score;
 import seedu.address.model.tag.Tag;
 
-import javafx.util.Pair;
-
 /**
  * Jackson-friendly version of {@link Card}.
  */
@@ -28,7 +26,7 @@ class JsonAdaptedCard {
     private final String question;
     private final String answer;
     private final String email;
-    private final Pair<Integer, Integer> score;
+    private final String score;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -36,7 +34,7 @@ class JsonAdaptedCard {
      */
     @JsonCreator
     public JsonAdaptedCard(@JsonProperty("question") String question, @JsonProperty("answer") String answer,
-                           @JsonProperty("email") String email, @JsonProperty("score") Pair<Integer, Integer> score,
+                           @JsonProperty("email") String email, @JsonProperty("score") String score,
                            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.question = question;
         this.answer = answer;
@@ -54,7 +52,7 @@ class JsonAdaptedCard {
         question = source.getQuestion().fullQuestion;
         answer = source.getAnswer().value;
         email = source.getEmail().value;
-        score = source.getScore().value;
+        score = source.toString();
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -102,10 +100,10 @@ class JsonAdaptedCard {
         if (!Score.isValidScore(score)) {
             throw new IllegalValueException(Score.MESSAGE_CONSTRAINTS);
         }
-        final Score modelAddress = new Score(score);
+        final Score modelScore = new Score(score);
 
         final Set<Tag> modelTags = new HashSet<>(cardTags);
-        return new Card(modelQuestion, modelAnswer, modelEmail, modelAddress, modelTags);
+        return new Card(modelQuestion, modelAnswer, modelEmail, modelScore, modelTags);
     }
 
 }
