@@ -33,7 +33,7 @@ public class CardThumbnail extends UiPart<Region> {
     @FXML
     private Label answer;
     @FXML
-    private Label address;
+    private Label score;
     @FXML
     private Label email;
     @FXML
@@ -45,7 +45,7 @@ public class CardThumbnail extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         question.setText(card.getQuestion().fullQuestion);
         answer.setText(card.getAnswer().value);
-        address.setText(card.getAddress().value);
+        score.setText(card.getScore().toString());
         email.setText(card.getEmail().value);
         card.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
