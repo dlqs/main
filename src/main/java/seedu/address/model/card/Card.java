@@ -21,18 +21,17 @@ public class Card {
     private final Email email;
 
     // Data fields
-    private final Address address;
+    private final Score score = new Score(0, 0);
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Card(Question question, Answer answer, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(question, answer, email, address, tags);
+    public Card(Question question, Answer answer, Email email, Set<Tag> tags) {
+        requireAllNonNull(question, answer, email, tags);
         this.question = question;
         this.answer = answer;
         this.email = email;
-        this.address = address;
         this.tags.addAll(tags);
     }
 
@@ -48,8 +47,8 @@ public class Card {
         return email;
     }
 
-    public Address getAddress() {
-        return address;
+    public Score getScore() {
+        return score;
     }
 
     /**
@@ -92,14 +91,14 @@ public class Card {
         return otherCard.getQuestion().equals(getQuestion())
                 && otherCard.getAnswer().equals(getAnswer())
                 && otherCard.getEmail().equals(getEmail())
-                && otherCard.getAddress().equals(getAddress())
+                && otherCard.getScore().equals(getScore())
                 && otherCard.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(question, answer, email, address, tags);
+        return Objects.hash(question, answer, email, score, tags);
     }
 
     @Override
@@ -110,8 +109,8 @@ public class Card {
                 .append(getAnswer())
                 .append(" Email: ")
                 .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
+                .append(" Score: ")
+                .append(getScore())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
