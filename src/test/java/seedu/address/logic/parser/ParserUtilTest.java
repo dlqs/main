@@ -103,36 +103,6 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseAnswer_validValueWithWhitespace_returnsTrimmedAnswer() throws Exception {
-        String answerWithWhitespace = WHITESPACE + VALID_ANSWER + WHITESPACE;
-        Answer expectedAnswer = new Answer(VALID_ANSWER);
-        assertEquals(expectedAnswer, ParserUtil.parseAnswer(answerWithWhitespace));
-    }
-
-    @Test
-    public void parseAddress_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseAddress((String) null));
-    }
-
-    @Test
-    public void parseAddress_invalidValue_throwsParseException() {
-        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseAddress(INVALID_ADDRESS));
-    }
-
-    @Test
-    public void parseAddress_validValueWithoutWhitespace_returnsAddress() throws Exception {
-        Score expectedAddress = new Score(VALID_ADDRESS);
-        assertEquals(expectedAddress, ParserUtil.parseAddress(VALID_ADDRESS));
-    }
-
-    @Test
-    public void parseAddress_validValueWithWhitespace_returnsTrimmedAddress() throws Exception {
-        String addressWithWhitespace = WHITESPACE + VALID_ADDRESS + WHITESPACE;
-        Score expectedAddress = new Score(VALID_ADDRESS);
-        assertEquals(expectedAddress, ParserUtil.parseAddress(addressWithWhitespace));
-    }
-
-    @Test
     public void parseEmail_null_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseEmail((String) null));
     }

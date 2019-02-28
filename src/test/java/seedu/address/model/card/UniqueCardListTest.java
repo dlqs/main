@@ -3,7 +3,7 @@ package seedu.address.model.card;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SCORE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.TypicalCards.ALICE;
 import static seedu.address.testutil.TypicalCards.BOB;
@@ -46,7 +46,7 @@ public class UniqueCardListTest {
     @Test
     public void contains_cardWithSameIdentityFieldsInList_returnsTrue() {
         uniqueCardList.add(ALICE);
-        Card editedAlice = new CardBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Card editedAlice = new CardBuilder(ALICE).withScore(VALID_SCORE_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(uniqueCardList.contains(editedAlice));
     }
@@ -94,7 +94,7 @@ public class UniqueCardListTest {
     @Test
     public void setCard_editedCardHasSameIdentity_success() {
         uniqueCardList.add(ALICE);
-        Card editedAlice = new CardBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Card editedAlice = new CardBuilder(ALICE).withScore(VALID_SCORE_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         uniqueCardList.setCard(ALICE, editedAlice);
         UniqueCardList expectedUniqueCardList = new UniqueCardList();

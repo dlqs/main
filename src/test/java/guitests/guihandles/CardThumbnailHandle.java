@@ -16,14 +16,14 @@ import seedu.address.model.card.Card;
 public class CardThumbnailHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";
     private static final String NAME_FIELD_ID = "#question";
-    private static final String ADDRESS_FIELD_ID = "#address";
+    private static final String SCORE_FIELD_ID = "#score";
     private static final String ANSWER_FIELD_ID = "#answer";
     private static final String EMAIL_FIELD_ID = "#email";
     private static final String TAGS_FIELD_ID = "#tags";
 
     private final Label idLabel;
     private final Label questionLabel;
-    private final Label addressLabel;
+    private final Label scoreLabel;
     private final Label answerLabel;
     private final Label emailLabel;
     private final List<Label> tagLabels;
@@ -33,7 +33,7 @@ public class CardThumbnailHandle extends NodeHandle<Node> {
 
         idLabel = getChildNode(ID_FIELD_ID);
         questionLabel = getChildNode(NAME_FIELD_ID);
-        addressLabel = getChildNode(ADDRESS_FIELD_ID);
+        scoreLabel = getChildNode(SCORE_FIELD_ID);
         answerLabel = getChildNode(ANSWER_FIELD_ID);
         emailLabel = getChildNode(EMAIL_FIELD_ID);
 
@@ -53,8 +53,8 @@ public class CardThumbnailHandle extends NodeHandle<Node> {
         return questionLabel.getText();
     }
 
-    public String getAddress() {
-        return addressLabel.getText();
+    public String getScore() {
+        return scoreLabel.getText();
     }
 
     public String getAnswer() {
@@ -77,7 +77,7 @@ public class CardThumbnailHandle extends NodeHandle<Node> {
      */
     public boolean equals(Card card) {
         return getQuestion().equals(card.getQuestion().fullQuestion)
-                && getAddress().equals(card.getAddress().value)
+                && getScore().equals(card.getScore().toString())
                 && getAnswer().equals(card.getAnswer().value)
                 && getEmail().equals(card.getEmail().value)
                 && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(card.getTags().stream()

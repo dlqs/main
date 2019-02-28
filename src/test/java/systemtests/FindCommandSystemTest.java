@@ -3,10 +3,7 @@ package systemtests;
 import static org.junit.Assert.assertFalse;
 import static seedu.address.commons.core.Messages.MESSAGE_CARDS_LISTED_OVERVIEW;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.testutil.TypicalCards.BENSON;
-import static seedu.address.testutil.TypicalCards.CARL;
-import static seedu.address.testutil.TypicalCards.DANIEL;
-import static seedu.address.testutil.TypicalCards.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalCards.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -113,11 +110,6 @@ public class FindCommandSystemTest extends CardFolderSystemTest {
 
         /* Case: find answer number of card in card folder -> 0 cards found */
         command = FindCommand.COMMAND_WORD + " " + DANIEL.getAnswer().value;
-        assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
-
-        /* Case: find address of card in card folder -> 0 cards found */
-        command = FindCommand.COMMAND_WORD + " " + DANIEL.getAddress().value;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
