@@ -1,10 +1,8 @@
 package seedu.address.ui;
 
 import static java.time.Duration.ofMillis;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
-
 import static seedu.address.testutil.TypicalCards.getTypicalCards;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CARD;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysCard;
@@ -16,16 +14,14 @@ import org.junit.Test;
 
 import guitests.guihandles.CardListPanelHandle;
 import guitests.guihandles.CardThumbnailHandle;
-
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
-import seedu.address.model.card.Address;
 import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.Email;
 import seedu.address.model.card.Question;
+import seedu.address.model.card.Score;
 
 public class CardListPanelTest extends GuiUnitTest {
     private static final ObservableList<Card> TYPICAL_CARDS =
@@ -86,8 +82,8 @@ public class CardListPanelTest extends GuiUnitTest {
             Question question = new Question(i + "a");
             Answer answer = new Answer("000");
             Email email = new Email("a@aa");
-            Address address = new Address("a");
-            Card card = new Card(question, answer, email, address, Collections.emptySet());
+            Score score = new Score("1/2");
+            Card card = new Card(question, answer, email, score, Collections.emptySet());
             backingList.add(card);
         }
         return backingList;
