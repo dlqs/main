@@ -1,9 +1,7 @@
 package seedu.address.model;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static org.junit.Assert.*;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SCORE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.TypicalCards.ALICE;
 import static seedu.address.testutil.TypicalCards.getTypicalCardFolder;
@@ -21,7 +19,6 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import seedu.address.model.card.Card;
 import seedu.address.model.card.exceptions.DuplicateCardException;
 import seedu.address.testutil.CardBuilder;
@@ -54,7 +51,7 @@ public class CardFolderTest {
     @Test
     public void resetData_withDuplicateCards_throwsDuplicateCardException() {
         // Two cards with the same identity fields
-        Card editedAlice = new CardBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Card editedAlice = new CardBuilder(ALICE).withScore(VALID_SCORE_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Card> newCards = Arrays.asList(ALICE, editedAlice);
         CardFolderStub newData = new CardFolderStub(newCards);
@@ -83,7 +80,7 @@ public class CardFolderTest {
     @Test
     public void hasCard_cardWithSameIdentityFieldsInCardFolder_returnsTrue() {
         cardFolder.addCard(ALICE);
-        Card editedAlice = new CardBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Card editedAlice = new CardBuilder(ALICE).withScore(VALID_SCORE_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(cardFolder.hasCard(editedAlice));
     }
