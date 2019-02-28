@@ -20,6 +20,7 @@ import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.Email;
 import seedu.address.model.card.Question;
+import seedu.address.model.card.Score;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -92,9 +93,11 @@ public class EditCommand extends Command {
         Question updatedQuestion = editCardDescriptor.getQuestion().orElse(cardToEdit.getQuestion());
         Answer updatedAnswer = editCardDescriptor.getAnswer().orElse(cardToEdit.getAnswer());
         Email updatedEmail = editCardDescriptor.getEmail().orElse(cardToEdit.getEmail());
+        // Score is not editable by user
+        Score score = cardToEdit.getScore();
         Set<Tag> updatedTags = editCardDescriptor.getTags().orElse(cardToEdit.getTags());
 
-        return new Card(updatedQuestion, updatedAnswer, updatedEmail, updatedTags);
+        return new Card(updatedQuestion, updatedAnswer, updatedEmail, score, updatedTags);
     }
 
     @Override
