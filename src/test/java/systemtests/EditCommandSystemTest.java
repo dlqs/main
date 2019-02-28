@@ -1,33 +1,10 @@
 package systemtests;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.ANSWER_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.ANSWER_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_ANSWER_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_QUESTION_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static org.junit.Assert.*;
+import static seedu.address.logic.commands.CommandTestUtil.*;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CARDS;
-import static seedu.address.testutil.TypicalCards.AMY;
-import static seedu.address.testutil.TypicalCards.BOB;
-import static seedu.address.testutil.TypicalCards.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalCards.*;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARD;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CARD;
 
@@ -39,7 +16,6 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
-import seedu.address.model.card.Address;
 import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.Email;
@@ -61,7 +37,7 @@ public class EditCommandSystemTest extends CardFolderSystemTest {
          */
         Index index = INDEX_FIRST_CARD;
         String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + QUESTION_DESC_BOB + "  "
-                + ANSWER_DESC_BOB + " " + EMAIL_DESC_BOB + "  " + ADDRESS_DESC_BOB + " " + TAG_DESC_HUSBAND + " ";
+                + ANSWER_DESC_BOB + " " + EMAIL_DESC_BOB + " " + TAG_DESC_HUSBAND + " ";
         Card editedCard = new CardBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
         assertCommandSuccess(command, index, editedCard);
 
@@ -79,7 +55,7 @@ public class EditCommandSystemTest extends CardFolderSystemTest {
         /* Case: edit a card with new values same as existing values -> edited */
         command =
                 EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_BOB + ANSWER_DESC_BOB
-                        + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+                        + EMAIL_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandSuccess(command, index, BOB);
 
         /* Case: edit a card with new values same as another card's values but with different question -> edited */
@@ -88,7 +64,7 @@ public class EditCommandSystemTest extends CardFolderSystemTest {
         assertNotEquals(getModel().getFilteredCardList().get(index.getZeroBased()), BOB);
         command =
                 EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_AMY + ANSWER_DESC_BOB
-                        + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+                        + EMAIL_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         editedCard = new CardBuilder(BOB).withQuestion(VALID_QUESTION_AMY).build();
         assertCommandSuccess(command, index, editedCard);
 
@@ -98,7 +74,7 @@ public class EditCommandSystemTest extends CardFolderSystemTest {
         index = INDEX_SECOND_CARD;
         command =
                 EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_BOB + ANSWER_DESC_AMY
-                        + EMAIL_DESC_AMY + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+                        + EMAIL_DESC_AMY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         editedCard = new CardBuilder(BOB).withAnswer(VALID_ANSWER_AMY).withEmail(VALID_EMAIL_AMY).build();
         assertCommandSuccess(command, index, editedCard);
 
@@ -138,7 +114,7 @@ public class EditCommandSystemTest extends CardFolderSystemTest {
         selectCard(index);
         command =
                 EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_AMY + ANSWER_DESC_AMY
-                        + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + TAG_DESC_FRIEND;
+                        + EMAIL_DESC_AMY + TAG_DESC_FRIEND;
         // this can be misleading: card selection actually remains unchanged but the
         // browser's url is updated to reflect the new card's question
         assertCommandSuccess(command, index, AMY, index);
@@ -178,10 +154,6 @@ public class EditCommandSystemTest extends CardFolderSystemTest {
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_CARD.getOneBased()
                 + INVALID_EMAIL_DESC, Email.MESSAGE_CONSTRAINTS);
 
-        /* Case: invalid address -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_CARD.getOneBased()
-                + INVALID_ADDRESS_DESC, Address.MESSAGE_CONSTRAINTS);
-
         /* Case: invalid tag -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_CARD.getOneBased()
                 + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS);
@@ -193,31 +165,31 @@ public class EditCommandSystemTest extends CardFolderSystemTest {
         assertFalse(getModel().getFilteredCardList().get(index.getZeroBased()).equals(BOB));
         command =
                 EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_BOB + ANSWER_DESC_BOB
-                        + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+                        + EMAIL_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_CARD);
 
         /* Case: edit a card with new values same as another card's values but with different tags -> rejected */
         command =
                 EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_BOB + ANSWER_DESC_BOB
-                        + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND;
+                        + EMAIL_DESC_BOB + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_CARD);
 
         /* Case: edit a card with new values same as another card's values but with different address -> rejected */
         command =
                 EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_BOB + ANSWER_DESC_BOB
-                        + EMAIL_DESC_BOB + ADDRESS_DESC_AMY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+                        + EMAIL_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_CARD);
 
         /* Case: edit a card with new values same as another card's values but with different answer -> rejected */
         command =
                 EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_BOB + ANSWER_DESC_AMY
-                        + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+                        + EMAIL_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_CARD);
 
         /* Case: edit a card with new values same as another card's values but with different email -> rejected */
         command =
                 EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_BOB + ANSWER_DESC_BOB
-                        + EMAIL_DESC_AMY + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+                        + EMAIL_DESC_AMY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_CARD);
     }
 
