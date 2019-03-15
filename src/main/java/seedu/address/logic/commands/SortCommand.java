@@ -1,5 +1,8 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.model.Model.COMPARATOR_DESCENDING_CARDS;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -9,10 +12,15 @@ import seedu.address.model.Model;
  * highest.
  */
 public class SortCommand extends Command {
-    public static final String COMMAND_USAGE = "sort";
-    public static final String MESSAGE_SUCCESS = "Sorted flashcards";
+
+    public static final String COMMAND_WORD = "sort";
+
+    public static final String MESSAGE_SUCCESS = "Sorted flashcards with lowest score first";
+
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        return null;
+        requireNonNull(model);
+        model.sortFilteredCard(COMPARATOR_DESCENDING_CARDS);
+        return new CommandResult(MESSAGE_SUCCESS);
     }
 }

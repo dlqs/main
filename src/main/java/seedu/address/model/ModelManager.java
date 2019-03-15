@@ -6,6 +6,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
@@ -34,7 +35,7 @@ public class ModelManager implements Model {
     private final FilteredList<VersionedCardFolder> filteredFoldersList;
     private int activeCardFolderIndex;
     private final UserPrefs userPrefs;
-    private final List<FilteredList<Card>> filteredCardsList;
+    private final List<ObservableList<Card>> filteredCardsList;
     private final SimpleObjectProperty<Card> selectedCard = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<Card> currentTestedCard = new SimpleObjectProperty<>();
     private boolean insideTestSession = false;
@@ -59,7 +60,7 @@ public class ModelManager implements Model {
 
         filteredCardsList = new ArrayList<>();
         for (int i = 0; i < filteredFoldersList.size(); i++) {
-            FilteredList<Card> filteredCards = new FilteredList<>(filteredFoldersList.get(i).getCardList());
+            ObservableList<Card> filteredCards = new FilteredList<>(filteredFoldersList.get(i).getCardList());
             filteredCardsList.add(filteredCards);
             filteredCards.addListener(this::ensureSelectedCardIsValid);
         }
@@ -88,6 +89,9 @@ public class ModelManager implements Model {
     }
 
     private FilteredList<Card> getActiveFilteredCards() {
+        return new FilteredList<>(filteredCardsList.get(activeCardFolderIndex));
+    }
+    private ObservableList<Card> getActiveObservableCards() {
         return filteredCardsList.get(activeCardFolderIndex);
     }
 
@@ -222,11 +226,18 @@ public class ModelManager implements Model {
         return getActiveFilteredCards();
     }
 
+
     @Override
     public void updateFilteredCard(Predicate<Card> predicate) {
         requireNonNull(predicate);
         FilteredList<Card> filteredCards = getActiveFilteredCards();
         filteredCards.setPredicate(predicate);
+    }
+    @Override
+    public void sortFilteredCard(Comparator<Card> cardComparator) {
+        requireNonNull(cardComparator);
+        FilteredList<Card> filteredCards = getActiveFilteredCards();
+        Collections.sort(filteredCards.getSource(), cardComparator);
     }
 
     //=========== Undo/Redo =================================================================================

@@ -9,7 +9,7 @@ import java.util.Objects;
  * Represents a Card's score in the card folder.
  * Guarantees: immutable; is valid as declared in {@link #isValidScore(String)}
  */
-public class Score {
+public class Score implements Comparable<Score> {
 
     public static final String MESSAGE_CONSTRAINTS = "Score can take a float between 0 and 1 or a string a/b,"
             + "where 0 <= a <= b and a and b are integers.";
@@ -118,6 +118,10 @@ public class Score {
                 || (other instanceof Score // instanceof handles nulls
                 && correctAttempts == (((Score) other).correctAttempts)
                 && totalAttempts == (((Score) other).totalAttempts));
+    }
+    @Override
+    public int compareTo(Score other) {
+        return (int)(this.getAsDouble() - other.getAsDouble());
     }
 
     @Override

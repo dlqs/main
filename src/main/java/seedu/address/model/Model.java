@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -17,6 +18,7 @@ import seedu.address.model.card.Card;
 public interface Model extends Observable {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Card> PREDICATE_SHOW_ALL_CARDS = unused -> true;
+    Comparator<Card> COMPARATOR_DESCENDING_CARDS = (card1, card2) -> -1*card1.getScore().compareTo(card2.getScore());
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -110,6 +112,12 @@ public interface Model extends Observable {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredCard(Predicate<Card> predicate);
+
+    /**
+     * Updates the filter of the filtered card list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void sortFilteredCard(Comparator<Card> cardComparator);
 
     /**
      * Returns true if the model has previous card folder states to restore.
