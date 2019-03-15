@@ -54,10 +54,10 @@ public class AnswerCommand extends Command {
         model.updateFilteredCard(PREDICATE_SHOW_ALL_CARDS);
         model.commitActiveCardFolder();
         if (isAttemptCorrect) {
-            return new CommandResult(MESSAGE_ANSWER_SUCCESS, false, false, null,
+            return new CommandResult(MESSAGE_ANSWER_SUCCESS, false, false, false, null,
                     false, AnswerCommandResultType.ANSWER_CORRECT);
         } else {
-            return new CommandResult(MESSAGE_ANSWER_SUCCESS, false, false, null,
+            return new CommandResult(MESSAGE_ANSWER_SUCCESS, false, false, false, null,
                     false, AnswerCommandResultType.ANSWER_WRONG);
         }
     }

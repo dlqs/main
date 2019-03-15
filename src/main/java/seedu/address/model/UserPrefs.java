@@ -7,7 +7,6 @@ import java.nio.file.Paths;
 import java.util.Objects;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.storage.StorageManager;
 
 /**
  * Represents User's preferences.
@@ -15,7 +14,7 @@ import seedu.address.storage.StorageManager;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
-    private Path cardFolderFilesPath = Paths.get("data" , StorageManager.DEFAULT_FOLDER_NAME);
+    private Path cardFolderFilesPath = Paths.get("data");
 
     /**
      * Creates a {@code UserPrefs} with default values.

@@ -101,7 +101,7 @@ public class GuiRobot extends FxRobot {
      *
      * @throws StageNotFoundException if the stage is not found.
      */
-    public Stage getStage(String stageTitle) {
+    public Stage getStage(String stageTitle) throws StageNotFoundException {
         Optional<Stage> targetStage = listTargetWindows().stream()
                 .filter(Stage.class::isInstance) // checks that the window is of type Stage
                 .map(Stage.class::cast)

@@ -14,7 +14,6 @@ import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_HINT_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_HINT_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_BOB;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -49,16 +48,14 @@ public class AddCommandParserTest {
         assertParseSuccess(parser, QUESTION_DESC_BOB + ANSWER_DESC_AMY + ANSWER_DESC_BOB
                 + HINT_DESC_FRIEND, new AddCommand(expectedCard));
 
-        // multiple hints - all accepted
-        Card expectedCardMultipleTags = new CardBuilder(BOB).withHint(VALID_HINT_FRIEND, VALID_HINT_HUSBAND)
-                .build();
+        // multiple hints - last hint accepted
         assertParseSuccess(parser, QUESTION_DESC_BOB + ANSWER_DESC_BOB + HINT_DESC_HUSBAND
-                + HINT_DESC_FRIEND, new AddCommand(expectedCardMultipleTags));
+                + HINT_DESC_FRIEND, new AddCommand(expectedCard));
     }
 
     @Test
     public void parse_optionalFieldsMissing_success() {
-        // zero tags
+        // zero hints
         Card expectedCard = new CardBuilder(AMY).withHint().build();
         assertParseSuccess(parser, QUESTION_DESC_AMY + ANSWER_DESC_AMY, new AddCommand(expectedCard));
     }

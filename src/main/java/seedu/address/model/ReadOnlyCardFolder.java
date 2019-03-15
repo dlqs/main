@@ -19,5 +19,4 @@ public interface ReadOnlyCardFolder extends Observable {
      * Returns the name of the folder.
      */
     String getFolderName();
-
 }

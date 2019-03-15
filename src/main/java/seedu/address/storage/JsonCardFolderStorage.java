@@ -32,7 +32,7 @@ public class JsonCardFolderStorage implements CardFolderStorage {
     }
 
     @Override
-    public Optional<ReadOnlyCardFolder> readCardFolder() throws DataConversionException {
+    public Optional<ReadOnlyCardFolder> readCardFolder() throws DataConversionException, IOException {
         return readCardFolder(filePath);
     }
 
@@ -42,13 +42,14 @@ public class JsonCardFolderStorage implements CardFolderStorage {
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyCardFolder> readCardFolder(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyCardFolder> readCardFolder(Path filePath) throws DataConversionException, IOException {
         requireNonNull(filePath);
 
         Optional<JsonSerializableCardFolder> jsonCardFolder = JsonUtil.readJsonFile(
                 filePath, JsonSerializableCardFolder.class);
         if (!jsonCardFolder.isPresent()) {
-            return Optional.empty();
+            logger.info("File not found at " + filePath);
+            throw new IOException();
         }
 
         try {
@@ -65,7 +66,7 @@ public class JsonCardFolderStorage implements CardFolderStorage {
         if (!readOnlyCardFolder.isPresent()) {
             return Optional.empty();
         }
-        return Optional.of(StorageManager.DEFAULT_FOLDER_NAME);
+        return Optional.of(readOnlyCardFolder.get().getFolderName());
     }
 
     @Override

@@ -77,6 +77,10 @@ public class LogicManager implements Logic {
             } catch (IOException ioe) {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }
+            // re-register listeners to all card folders
+            for (ReadOnlyCardFolder cardFolder : model.getCardFolders()) {
+                cardFolder.addListener(observable -> cardFolderModified = true);
+            }
         }
 
         return commandResult;

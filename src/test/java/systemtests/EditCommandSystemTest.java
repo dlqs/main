@@ -91,7 +91,7 @@ public class EditCommandSystemTest extends CardFolderSystemTest {
         editedCard = new CardBuilder(BOB).withAnswer(VALID_ANSWER_AMY).build();
         assertCommandSuccess(command, index, editedCard);
 
-        /* Case: clear tags -> cleared */
+        /* Case: clear hints -> cleared */
         index = INDEX_FIRST_CARD;
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + PREFIX_HINT.getPrefix();
         Card cardToEdit = getModel().getFilteredCards().get(index.getZeroBased());

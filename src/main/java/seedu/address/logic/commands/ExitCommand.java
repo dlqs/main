@@ -15,7 +15,7 @@ public class ExitCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
-        return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, false, true, null, false,
+        return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, false, true, false, null, false,
                 AnswerCommandResultType.NOT_ANSWER_COMMAND);
     }
 

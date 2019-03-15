@@ -2,7 +2,9 @@ package seedu.address;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.function.Supplier;
 
 import javafx.stage.Screen;
@@ -10,14 +12,19 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.logic.LogicManager;
 import seedu.address.model.CardFolder;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyCardFolder;
 import seedu.address.model.UserPrefs;
+import seedu.address.storage.CardFolderStorage;
 import seedu.address.storage.JsonCardFolderStorage;
+import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.testutil.TestUtil;
+import seedu.address.ui.UiManager;
 import systemtests.ModelHelper;
 
 /**
@@ -50,6 +57,31 @@ public class TestApp extends MainApp {
                 throw new AssertionError(ioe);
             }
         }
+    }
+
+    @Override
+    public void init() throws Exception {
+        super.init();
+
+        AppParameters appParameters = AppParameters.parse(getParameters());
+        config = initConfig(appParameters.getConfigPath());
+
+        UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
+        UserPrefs userPrefs = initPrefs(userPrefsStorage);
+        List<CardFolderStorage> cardFolderStorageList = new ArrayList<>();
+
+        Path cardFolderFilesPath = userPrefs.getcardFolderFilesPath();
+        cardFolderStorageList.add(new JsonCardFolderStorage(cardFolderFilesPath));
+
+        storage = new StorageManager(cardFolderStorageList, userPrefsStorage);
+
+        initLogging(config);
+
+        model = initModelManager(false, storage, userPrefs);
+
+        logic = new LogicManager(model, storage);
+
+        ui = new UiManager(logic);
     }
 
     @Override

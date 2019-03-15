@@ -124,7 +124,7 @@ public class CardFolder implements ReadOnlyCardFolder {
 
     @Override
     public String toString() {
-        return cards.asUnmodifiableObservableList().size() + " cards";
+        return getFolderName();
         // TODO: refine later
     }
 

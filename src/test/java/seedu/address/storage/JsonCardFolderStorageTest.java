@@ -1,7 +1,6 @@
 package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static seedu.address.testutil.TypicalCards.ALICE;
 import static seedu.address.testutil.TypicalCards.HOON;
 import static seedu.address.testutil.TypicalCards.IDA;
@@ -46,8 +45,9 @@ public class JsonCardFolderStorageTest {
     }
 
     @Test
-    public void read_missingFile_emptyResult() throws Exception {
-        assertFalse(readCardFolder("NonExistentFile.json").isPresent());
+    public void read_missingFile_exceptionThrown() throws Exception {
+        thrown.expect(IOException.class);
+        readCardFolder("NonExistentFile.json");
     }
 
     @Test

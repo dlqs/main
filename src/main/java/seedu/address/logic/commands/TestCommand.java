@@ -49,7 +49,7 @@ public class TestCommand extends Command {
         ReadOnlyCardFolder cardFolderToTest = cardFoldersList.get(targetIndex.getZeroBased());
         model.testCardFolder(cardFolderToTest);
         Card cardToTest = model.getCurrentTestedCard();
-        return new CommandResult(MESSAGE_ENTER_TEST_FOLDER_SUCCESS, false, false, cardToTest, false,
+        return new CommandResult(MESSAGE_ENTER_TEST_FOLDER_SUCCESS, false, false, false, cardToTest, false,
                 AnswerCommandResultType.NOT_ANSWER_COMMAND);
     }
 

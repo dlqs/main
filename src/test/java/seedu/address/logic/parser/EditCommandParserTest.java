@@ -32,7 +32,7 @@ import seedu.address.testutil.EditCardDescriptorBuilder;
 
 public class EditCommandParserTest {
 
-    private static final String TAG_EMPTY = " " + PREFIX_HINT;
+    private static final String HINT_EMPTY = " " + PREFIX_HINT;
 
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
@@ -76,11 +76,9 @@ public class EditCommandParserTest {
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
         assertParseFailure(parser, "1" + ANSWER_DESC_BOB + INVALID_ANSWER_DESC, Answer.MESSAGE_CONSTRAINTS);
 
-        // while parsing {@code PREFIX_HINT} alone will reset the tags of the {@code Card} being edited,
-        // parsing it together with a valid hint results in error
-        assertParseFailure(parser, "1" + HINT_DESC_FRIEND + HINT_DESC_HUSBAND + TAG_EMPTY, Hint.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + HINT_DESC_FRIEND + TAG_EMPTY + HINT_DESC_HUSBAND, Hint.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_EMPTY + HINT_DESC_FRIEND + HINT_DESC_HUSBAND, Hint.MESSAGE_CONSTRAINTS);
+        // while parsing {@code PREFIX_HINT} alone will reset the hints of the {@code Card} being edited,
+        // parsing valid hint followed by invalid hint will result in error
+        assertParseFailure(parser, "1" + HINT_DESC_FRIEND + HINT_DESC_HUSBAND + HINT_EMPTY, Hint.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
         assertParseFailure(parser,
@@ -91,11 +89,10 @@ public class EditCommandParserTest {
     @Test
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_CARD;
-        String userInput = targetIndex.getOneBased() + ANSWER_DESC_BOB + HINT_DESC_HUSBAND + QUESTION_DESC_AMY
-                + HINT_DESC_FRIEND;
+        String userInput = targetIndex.getOneBased() + ANSWER_DESC_BOB + HINT_DESC_HUSBAND + QUESTION_DESC_AMY;
 
         EditCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder().withQuestion(VALID_QUESTION_AMY)
-                .withAnswer(VALID_ANSWER_BOB).withHint(VALID_HINT_HUSBAND, VALID_HINT_FRIEND).build();
+                .withAnswer(VALID_ANSWER_BOB).withHint(VALID_HINT_HUSBAND).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -129,7 +126,7 @@ public class EditCommandParserTest {
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
-        // tags
+        // hints
         userInput = targetIndex.getOneBased() + HINT_DESC_FRIEND;
         descriptor = new EditCardDescriptorBuilder().withHint(VALID_HINT_FRIEND).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
@@ -143,7 +140,7 @@ public class EditCommandParserTest {
                 + HINT_DESC_FRIEND + ANSWER_DESC_BOB + HINT_DESC_HUSBAND;
 
         EditCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder().withAnswer(VALID_ANSWER_BOB)
-                .withHint(VALID_HINT_FRIEND, VALID_HINT_HUSBAND).build();
+                .withHint(VALID_HINT_HUSBAND).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -167,9 +164,9 @@ public class EditCommandParserTest {
     }
 
     @Test
-    public void parse_resetTags_success() {
+    public void parse_resetHints_success() {
         Index targetIndex = INDEX_THIRD_CARD;
-        String userInput = targetIndex.getOneBased() + TAG_EMPTY;
+        String userInput = targetIndex.getOneBased() + HINT_EMPTY;
 
         EditCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder().withHint().build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);

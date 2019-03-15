@@ -3,6 +3,8 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILENAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FOLDERNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_HINT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
 
@@ -31,6 +33,10 @@ public class CommandTestUtil {
     public static final String VALID_SCORE_AMY = "0/0";
     public static final String VALID_HINT_HUSBAND = "husband";
     public static final String VALID_HINT_FRIEND = "friend";
+    public static final String VALID_FOLDER_NAME_1 = "Sample Folder 1";
+    public static final String VALID_FOLDER_NAME_2 = "Sample Folder 2";
+    public static final String VALID_FILENAME = "sample_folder.csv";
+    public static final String INVALID_FILENAME = "sample_folder.json";
 
     public static final String QUESTION_DESC_AMY = " " + PREFIX_QUESTION + VALID_QUESTION_AMY;
     public static final String QUESTION_DESC_BOB = " " + PREFIX_QUESTION + VALID_QUESTION_BOB;
@@ -38,16 +44,26 @@ public class CommandTestUtil {
     public static final String ANSWER_DESC_BOB = " " + PREFIX_ANSWER + VALID_ANSWER_BOB;
     public static final String HINT_DESC_FRIEND = " " + PREFIX_HINT + VALID_HINT_FRIEND;
     public static final String HINT_DESC_HUSBAND = " " + PREFIX_HINT + VALID_HINT_HUSBAND;
+    public static final String FOLDER_DESC_SAMPLE_1 = " " + PREFIX_FOLDERNAME + VALID_FOLDER_NAME_1;
+    public static final String FOLDER_DESC_SAMPLE_2 = " " + PREFIX_FOLDERNAME + VALID_FOLDER_NAME_2;
+    public static final String FILENAME_DESC_SAMPLE = " " + PREFIX_FILENAME + VALID_FILENAME;
+    public static final String INVALID_FILENAME_EXT = " " + PREFIX_FILENAME + INVALID_FILENAME;
 
     public static final String INVALID_QUESTION_DESC = " " + PREFIX_QUESTION; // empty string not allowed for questions
     public static final String INVALID_ANSWER_DESC = " " + PREFIX_ANSWER; // empty string not allowed for answers
+
     public static final String INVALID_HINT_DESC = " " + PREFIX_HINT + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_FOLDER_DESC = " " + PREFIX_FOLDERNAME;
+    public static final String INVALID_FILENAME_DESC = " " + PREFIX_FILENAME;
+
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
     public static final EditCommand.EditCardDescriptor DESC_AMY;
     public static final EditCommand.EditCardDescriptor DESC_BOB;
+
+
 
     static {
         DESC_AMY = new EditCardDescriptorBuilder().withQuestion(VALID_QUESTION_AMY)

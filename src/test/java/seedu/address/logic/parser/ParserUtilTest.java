@@ -116,16 +116,16 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseHint_validValueWithoutWhitespace_returnsTag() throws Exception {
+    public void parseHint_validValueWithoutWhitespace_returnsHint() throws Exception {
         Hint expectedHint = new Hint(VALID_HINT_1);
         assertEquals(expectedHint, ParserUtil.parseHint(VALID_HINT_1));
     }
 
     @Test
-    public void parseHint_validValueWithWhitespace_returnsTrimmedTag() throws Exception {
-        String tagWithWhitespace = WHITESPACE + VALID_HINT_1 + WHITESPACE;
+    public void parseHint_validValueWithWhitespace_returnsTrimmedHint() throws Exception {
+        String hintWithWhitespace = WHITESPACE + VALID_HINT_1 + WHITESPACE;
         Hint expectedHint = new Hint(VALID_HINT_1);
-        assertEquals(expectedHint, ParserUtil.parseHint(tagWithWhitespace));
+        assertEquals(expectedHint, ParserUtil.parseHint(hintWithWhitespace));
     }
 
     @Test
@@ -135,7 +135,7 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseHints_collectionWithInvalidTags_throwsParseException() throws Exception {
+    public void parseHints_collectionWithInvalidHints_throwsParseException() throws Exception {
         thrown.expect(ParseException.class);
         ParserUtil.parseHints(Arrays.asList(VALID_HINT_1, INVALID_HINT));
     }
@@ -146,9 +146,9 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseHints_collectionWithValidTags_returnsTagSet() throws Exception {
+    public void parseHints_collectionWithValidHints_returnsHintSet() throws Exception {
         Set<Hint> actualHintSet = ParserUtil.parseHints(Arrays.asList(VALID_HINT_1, VALID_HINT_2));
-        Set<Hint> expectedHintSet = new HashSet<Hint>(Arrays.asList(new Hint(VALID_HINT_1), new Hint(VALID_HINT_2)));
+        Set<Hint> expectedHintSet = new HashSet<Hint>(Arrays.asList(new Hint(VALID_HINT_2)));
 
         assertEquals(expectedHintSet, actualHintSet);
     }

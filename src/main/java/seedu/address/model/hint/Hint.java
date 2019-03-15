@@ -9,7 +9,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Hint {
 
-    public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric";
+    public static final String MESSAGE_CONSTRAINTS = "Hints names should be alphanumeric";
     public static final String VALIDATION_REGEX = "\\p{Alnum}+";
 
     public final String hintName;

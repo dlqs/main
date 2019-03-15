@@ -22,6 +22,9 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    /** The side panel should be updated. */
+    private final boolean sidePanelUpdated;
+
     /** The application should enter a test session. */
     private final Card testSessionCard;
 
@@ -34,11 +37,12 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, Card testSessionCard,
-                         boolean endTestSession, AnswerCommandResultType answerCommandResult) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean sidePanelUpdated,
+                         Card testSessionCard, boolean endTestSession, AnswerCommandResultType answerCommandResult) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
+        this.sidePanelUpdated = sidePanelUpdated;
         this.testSessionCard = testSessionCard;
         this.endTestSession = endTestSession;
         this.answerCommandResult = answerCommandResult;
@@ -49,7 +53,7 @@ public class CommandResult {
      * and other fields set to their default fullAnswer.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, null, false, AnswerCommandResultType.NOT_ANSWER_COMMAND);
+        this(feedbackToUser, false, false, false, null, false, AnswerCommandResultType.NOT_ANSWER_COMMAND);
     }
 
     public String getFeedbackToUser() {
@@ -107,6 +111,10 @@ public class CommandResult {
         } else {
             throw new CommandException(Messages.MESSAGE_INVALID_ANSWER_COMMAND);
         }
+    }
+
+    public boolean isSidePanelUpdated() throws CommandException {
+        return sidePanelUpdated;
     }
 
     @Override

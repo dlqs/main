@@ -47,7 +47,7 @@ public class TypicalCards {
     public static final Card AMY = new CardBuilder().withQuestion(VALID_QUESTION_AMY).withAnswer(VALID_ANSWER_AMY)
             .withScore(VALID_SCORE_AMY).withHint(VALID_HINT_FRIEND).build();
     public static final Card BOB = new CardBuilder().withQuestion(VALID_QUESTION_BOB).withAnswer(VALID_ANSWER_BOB)
-            .withScore("0/0").withHint(VALID_HINT_HUSBAND, VALID_HINT_FRIEND).build();
+            .withScore("0/0").withHint(VALID_HINT_HUSBAND).build();
 
     public static final String TYPICAL_FOLDER_NAME = "Typical Cards";
 

@@ -51,6 +51,10 @@ public class SampleDataUtil {
         return "Sample Folder";
     }
 
+    public static String getSampleFolderFileName() {
+        return "Sample Folder.json";
+    }
+
     /**
      * Returns a hint set containing the list of strings given.
      */

@@ -44,12 +44,23 @@ Format: `help`
 === Adding a flashcard : `add`
 
 Adds a flashcard to the current folder. +
-Format: `add q/QUESTION a/ANSWER`
+Format: `add q/QUESTION a/ANSWER [h/HINT]...`
+
+[TIP]
+A card can have at most 1 hint (including 0)
 
 === Editing a flashcard : `edit`
 
 Edits the flashcard specified by the index in the current folder. +
-Format: `edit i/INDEX [q/QUESTION] [a/ANSWER]`
+Format: `edit i/INDEX [q/QUESTION] [a/ANSWER] [h/HINT]...`
+
+****
+* Edits the card at the specified `INDEX`. The index refers to the index number shown in the displayed card list. The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing hints, the existing hint of the person will be removed i.e adding of hints is not cumulative.
+* You can remove the card's hint by typing `h/` without specifying any hint after it.
+****
 
 === Selecting a flashcard : `select`
 

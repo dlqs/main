@@ -1,11 +1,13 @@
 package seedu.address;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
+import java.util.stream.Stream;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -58,14 +60,29 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         List<CardFolderStorage> cardFolderStorageList = new ArrayList<>();
-        // TODO: Iterate over all files in directory
+
         Path cardFolderFilesPath = userPrefs.getcardFolderFilesPath();
-        cardFolderStorageList.add(new JsonCardFolderStorage(cardFolderFilesPath));
+
+        boolean withSample = false;
+        if (Files.isDirectory(cardFolderFilesPath)) {
+            Stream<Path> stream = Files.walk(cardFolderFilesPath);
+            if (stream != null) {
+                stream.filter(Files::isRegularFile)
+                        .forEach(file -> cardFolderStorageList.add(new JsonCardFolderStorage(file)));
+            }
+        }
+        if (cardFolderStorageList.isEmpty()) {
+            logger.info("Folders not found. Will be starting with a sample CardFolder");
+            Path samplePath = cardFolderFilesPath.resolve(SampleDataUtil.getSampleFolderFileName());
+            cardFolderStorageList.add(new JsonCardFolderStorage(samplePath));
+            withSample = true;
+        }
+
         storage = new StorageManager(cardFolderStorageList, userPrefsStorage);
 
         initLogging(config);
 
-        model = initModelManager(storage, userPrefs);
+        model = initModelManager(withSample, storage, userPrefs);
 
         logic = new LogicManager(model, storage);
 
@@ -77,27 +94,31 @@ public class MainApp extends Application {
      * The data from the sample card folder will be used instead if {@code storage}'s card folder is not found,
      * or an empty card folder will be used instead if errors occur when reading {@code storage}'s card folder.
      */
-    private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
+    Model initModelManager(boolean withSample, Storage storage, ReadOnlyUserPrefs userPrefs) {
         List<ReadOnlyCardFolder> initialCardFolders;
-        // TODO: For exception handling, allow non-corrupted folders to be displayed
-        try {
-            initialCardFolders = storage.readCardFolders();
-            if (initialCardFolders.isEmpty()) {
-                logger.info("Data file not found. Will be starting with a sample CardFolder");
+
+        if (withSample) {
+            initialCardFolders = new ArrayList<>();
+            initialCardFolders.add(SampleDataUtil.getSampleCardFolder());
+        } else {
+            // TODO: In exception scenarios, make sure cardFolderStorageList agrees
+            try {
+                initialCardFolders = storage.readCardFolders();
+            } catch (DataConversionException e) {
+                logger.warning("Data file not in the correct format. Will not be starting with any CardFolder");
+                initialCardFolders = new ArrayList<>();
+                initialCardFolders.add(SampleDataUtil.getSampleCardFolder());
+            } catch (IOException e) {
+                logger.warning("Problem while reading from the file. Will not be starting with any CardFolder");
+                initialCardFolders = new ArrayList<>();
                 initialCardFolders.add(SampleDataUtil.getSampleCardFolder());
             }
-        } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will not be starting with any CardFolder");
-            return new ModelManager(userPrefs);
-        } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will not be starting with any CardFolder");
-            return new ModelManager(userPrefs);
         }
 
         return new ModelManager(initialCardFolders, userPrefs);
     }
 
-    private void initLogging(Config config) {
+    void initLogging(Config config) {
         LogsCenter.init(config);
     }
 

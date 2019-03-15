@@ -44,7 +44,7 @@ public class AddCommandSystemTest extends CardFolderSystemTest {
 
         /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
 
-        /* Case: add a card without tags to a non-empty card folder, command with leading spaces and trailing spaces
+        /* Case: add a card without hints to a non-empty card folder, command with leading spaces and trailing spaces
          * -> added
          */
         Card toAdd = AMY;
@@ -77,13 +77,13 @@ public class AddCommandSystemTest extends CardFolderSystemTest {
         deleteAllCards();
         assertCommandSuccess(ALICE);
 
-        /* Case: add a card with tags, command with parameters in random order -> added */
+        /* Case: add a card with hints, command with parameters in random order -> added */
         toAdd = BOB;
         command = AddCommand.COMMAND_WORD + HINT_DESC_FRIEND + ANSWER_DESC_BOB + QUESTION_DESC_BOB
                 + HINT_DESC_HUSBAND;
         assertCommandSuccess(command, toAdd);
 
-        /* Case: add a card, missing tags -> added */
+        /* Case: add a card, missing hints -> added */
         assertCommandSuccess(HOON);
 
         /* -------------------------- Perform add operation on the shown filtered list ------------------------------ */
