@@ -39,7 +39,7 @@ public class ModelManager implements Model {
     private int activeCardFolderIndex;
     private boolean inFolder;
     private final UserPrefs userPrefs;
-    private final List<ObservableList<Card>> filteredCardsList;
+    private final List<FilteredList<Card>> filteredCardsList;
     private final SimpleObjectProperty<Card> selectedCard = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<Card> currentTestedCard = new SimpleObjectProperty<>();
     private boolean insideTestSession = false;
@@ -94,7 +94,7 @@ public class ModelManager implements Model {
     }
 
     private FilteredList<Card> getActiveFilteredCards() {
-        return new FilteredList<>(filteredCardsList.get(activeCardFolderIndex));
+        return filteredCardsList.get(activeCardFolderIndex);
     }
     private ObservableList<Card> getActiveObservableCards() {
         return filteredCardsList.get(activeCardFolderIndex);
