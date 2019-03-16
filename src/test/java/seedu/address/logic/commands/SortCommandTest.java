@@ -1,10 +1,7 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.logic.commands.CommandTestUtil.answerFirstCard;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.showCardAtIndex;
 import static seedu.address.testutil.TypicalCards.getTypicalCardFolders;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARD;
 
 import org.junit.Before;
 import org.junit.Test;
