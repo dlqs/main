@@ -65,7 +65,7 @@ public class ModelManager implements Model {
 
         filteredCardsList = new ArrayList<>();
         for (int i = 0; i < filteredFoldersList.size(); i++) {
-            ObservableList<Card> filteredCards = new FilteredList<>(filteredFoldersList.get(i).getCardList());
+            FilteredList<Card> filteredCards = new FilteredList<>(filteredFoldersList.get(i).getCardList());
             filteredCardsList.add(filteredCards);
             filteredCards.addListener(this::ensureSelectedCardIsValid);
         }
@@ -288,8 +288,7 @@ public class ModelManager implements Model {
     @Override
     public void sortFilteredCard(Comparator<Card> cardComparator) {
         requireNonNull(cardComparator);
-        FilteredList<Card> filteredCards = getActiveFilteredCards();
-        Collections.sort(filteredCards.getSource(), cardComparator);
+        foldersList.get(activeCardFolderIndex).sortCards(cardComparator);
     }
 
     //=========== Undo/Redo =================================================================================

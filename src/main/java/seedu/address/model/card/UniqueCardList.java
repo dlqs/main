@@ -3,6 +3,8 @@ package seedu.address.model.card;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -82,6 +84,11 @@ public class UniqueCardList implements Iterable<Card> {
     public void setCards(UniqueCardList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
+    }
+
+    public void sortCards(Comparator<Card> comparator) {
+        requireNonNull(comparator);
+        FXCollections.sort(internalList, comparator);
     }
 
     /**

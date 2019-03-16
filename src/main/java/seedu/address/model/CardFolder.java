@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Comparator;
 import java.util.List;
 
 import javafx.beans.InvalidationListener;
@@ -131,6 +132,10 @@ public class CardFolder implements ReadOnlyCardFolder {
     @Override
     public ObservableList<Card> getCardList() {
         return cards.asUnmodifiableObservableList();
+    }
+
+    public void sortCards(Comparator<Card> comparator) {
+        cards.sortCards(comparator);
     }
 
     /**

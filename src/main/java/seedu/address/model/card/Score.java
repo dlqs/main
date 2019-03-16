@@ -119,9 +119,11 @@ public class Score implements Comparable<Score> {
                 && correctAttempts == (((Score) other).correctAttempts)
                 && totalAttempts == (((Score) other).totalAttempts));
     }
+
     @Override
     public int compareTo(Score other) {
-        return (int)(this.getAsDouble() - other.getAsDouble());
+        // Get percentage difference and multiply by 100 to compare as int
+        return (int)(100*(this.getAsDouble() - other.getAsDouble()));
     }
 
     @Override

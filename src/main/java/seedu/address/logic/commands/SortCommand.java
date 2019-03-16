@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.COMPARATOR_DESCENDING_CARDS;
+import static seedu.address.model.Model.COMPARATOR_ASC_SCORE_CARDS;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -20,7 +20,7 @@ public class SortCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        model.sortFilteredCard(COMPARATOR_DESCENDING_CARDS);
+        model.sortFilteredCard(COMPARATOR_ASC_SCORE_CARDS);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

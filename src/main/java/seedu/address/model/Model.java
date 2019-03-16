@@ -20,7 +20,10 @@ import seedu.address.storage.csvmanager.CardFolderExport;
 public interface Model extends Observable {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Card> PREDICATE_SHOW_ALL_CARDS = unused -> true;
-    Comparator<Card> COMPARATOR_DESCENDING_CARDS = (card1, card2) -> -1*card1.getScore().compareTo(card2.getScore());
+    /** {@code Comparator} that sorts cards by ascending percentage score */
+    Comparator<Card> COMPARATOR_ASC_SCORE_CARDS = Comparator.comparing(Card::getScore);
+    /** {@code Comparator} that sorts cards by ascending percentage score */
+    Comparator<Card> COMPARATOR_LEXICOGRAPHIC_CARDS = Comparator.comparing(Card::getQuestion);
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
