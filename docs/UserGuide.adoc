@@ -128,7 +128,7 @@ Format: `end`
 
 === Sort cards by level within a folder : `sort`
 
-Displays all flashcards sorted such that the lowest user performing cards are at the top temporarily. +
+Displays all flashcards sorted such that the lowest scoring cards are at the top temporarily. +
 Format: `sort`
 
 === Search by keywords : `search`
