@@ -8,6 +8,7 @@ import static org.junit.Assert.assertTrue;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
@@ -240,6 +241,11 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredCard(Predicate<Card> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void sortFilteredCard(Comparator<Card> comparator) {
             throw new AssertionError("This method should not be called.");
         }
 
