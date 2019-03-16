@@ -38,4 +38,11 @@ public class ListCommandTest {
         showCardAtIndex(model, INDEX_FIRST_CARD);
         assertCommandSuccess(new ListCommand(), model, commandHistory, ListCommand.MESSAGE_SUCCESS, expectedModel);
     }
+
+    @Test
+    public void execute_listInCorrectOrder() {
+        model.sortFilteredCard(Model.COMPARATOR_ASC_SCORE_CARDS); // sort in some arbitrary order
+        // List command should re-sort in lexicographic order before listing
+        assertCommandSuccess(new ListCommand(), model, commandHistory, ListCommand.MESSAGE_SUCCESS, expectedModel);
+    }
 }
