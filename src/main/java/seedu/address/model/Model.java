@@ -22,7 +22,7 @@ public interface Model extends Observable {
     Predicate<Card> PREDICATE_SHOW_ALL_CARDS = unused -> true;
     /** {@code Comparator} that sorts cards by ascending percentage score */
     Comparator<Card> COMPARATOR_ASC_SCORE_CARDS = Comparator.comparing(Card::getScore);
-    /** {@code Comparator} that sorts cards by ascending percentage score */
+    /** {@code Comparator} that sorts cards by lexicographic order of questions */
     Comparator<Card> COMPARATOR_LEXICOGRAPHIC_CARDS = Comparator.comparing(Card::getQuestion);
 
     /**
