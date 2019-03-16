@@ -32,10 +32,10 @@ public class TypicalCards {
             .withScore("0/0").withHint("friends").build();
     public static final Card ELLE = new CardBuilder().withQuestion("Elle Meyer").withAnswer("9482224").withScore("0/0")
             .build();
-    public static final Card FIONA = new CardBuilder().withQuestion("Fiona Kunz").withAnswer("9482427").withScore("1/2")
+    public static final Card FIONA = new CardBuilder().withQuestion("Fiona Kunz").withAnswer("9482427").withScore("2/3")
             .build();
     public static final Card GEORGE = new CardBuilder().withQuestion("George Best").withAnswer("9482442")
-            .withScore("2/3").build();
+            .withScore("1/2").build();
 
     // Manually added
     public static final Card HOON = new CardBuilder().withQuestion("Hoon Meier").withAnswer("8482424").withScore("0/0")
