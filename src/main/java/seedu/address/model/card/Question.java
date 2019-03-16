@@ -7,7 +7,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents a Card's question in the card folder.
  * Guarantees: immutable; is valid as declared in {@link #isValidQuestion(String)}
  */
-public class Question {
+public class Question implements Comparable<Question> {
 
     public static final String MESSAGE_CONSTRAINTS = "Questions can take any values, and should not be blank";
     /*
@@ -47,6 +47,11 @@ public class Question {
         return other == this // short circuit if same object
                 || (other instanceof Question // instanceof handles nulls
                 && fullQuestion.equals(((Question) other).fullQuestion)); // state check
+    }
+
+    @Override
+    public int compareTo(Question other) {
+        return fullQuestion.compareTo(other.fullQuestion);
     }
 
     @Override
