@@ -123,7 +123,7 @@ public class Score implements Comparable<Score> {
     @Override
     public int compareTo(Score other) {
         // Get percentage difference and multiply by 100 to compare as int
-        return (int)(100*(this.getAsDouble() - other.getAsDouble()));
+        return (int) (100 * (this.getAsDouble() - other.getAsDouble()));
     }
 
     @Override
