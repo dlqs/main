@@ -13,7 +13,7 @@ import seedu.address.model.card.UniqueCardList;
 
 /**
  * Wraps all data at the address-book level
- * Duplicates are not allowed (by .equals comparison)
+ * Duplicates are not allowed (by .isSameCard comparison)
  */
 public class CardFolder implements ReadOnlyCardFolder {
 

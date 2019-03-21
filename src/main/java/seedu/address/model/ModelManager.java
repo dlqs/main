@@ -405,7 +405,7 @@ public class ModelManager implements Model {
             }
 
             boolean wasSelectedCardRemoved = change.getRemoved().stream()
-                    .anyMatch(removedCard -> selectedCard.getValue().equals(removedCard));
+                    .anyMatch(removedCard -> selectedCard.getValue().isSameCard(removedCard));
             if (wasSelectedCardRemoved) {
                 // Select the card that came before it in the list,
                 // or clear the selection if there is no such card.

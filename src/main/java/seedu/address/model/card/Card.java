@@ -55,7 +55,22 @@ public class Card {
     }
 
     /**
-     * Returns true if both cards have the same question and answer.
+     * Returns true if both cards of the same question also have the same answer, but not necessarily the same hint.
+     * This defines a weaker notion of equality between two cards.
+     */
+    public boolean isSameCard(Card otherCard) {
+        if (otherCard == this) {
+            return true;
+        }
+
+        return otherCard != null
+                && otherCard.getQuestion().equals(getQuestion())
+                && (otherCard.getAnswer().equals(getAnswer()));
+    }
+
+    /**
+     * Returns true if both cards have the same identity and data fields.
+     * This defines a stronger notion of equality between two cards.
      */
     @Override
     public boolean equals(Object other) {
@@ -69,7 +84,10 @@ public class Card {
 
         Card otherCard = (Card) other;
         return otherCard.getQuestion().equals(getQuestion())
-                && otherCard.getAnswer().equals(getAnswer());
+                && otherCard.getAnswer().equals(getAnswer())
+                && otherCard.getScore().equals(getScore());
+                //&& otherCard.getHints().equals(getHints());
+
     }
 
     @Override

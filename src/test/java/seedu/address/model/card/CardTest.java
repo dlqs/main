@@ -28,30 +28,30 @@ public class CardTest {
     @Test
     public void isSameCard() {
         // same object -> returns true
-        assertTrue(ALICE.equals(ALICE));
+        assertTrue(ALICE.isSameCard(ALICE));
 
         // null -> returns false
-        assertFalse(ALICE.equals(null));
+        assertFalse(ALICE.isSameCard(null));
 
         // different answer -> returns false
         Card editedAlice = new CardBuilder(ALICE).withAnswer(VALID_ANSWER_2).build();
-        assertFalse(ALICE.equals(editedAlice));
+        assertFalse(ALICE.isSameCard(editedAlice));
 
         // different question -> returns false
         editedAlice = new CardBuilder(ALICE).withQuestion(VALID_QUESTION_2).build();
-        assertFalse(ALICE.equals(editedAlice));
+        assertFalse(ALICE.isSameCard(editedAlice));
 
         // same question, same answer, different attributes -> returns true
         editedAlice = new CardBuilder(ALICE).withHint(VALID_HINT_HUSBAND).build();
-        assertTrue(ALICE.equals(editedAlice));
+        assertTrue(ALICE.isSameCard(editedAlice));
 
         // same question, different answer, different attributes -> returns false
         editedAlice = new CardBuilder(ALICE).withAnswer(VALID_ANSWER_2).withHint(VALID_HINT_HUSBAND).build();
-        assertFalse(ALICE.equals(editedAlice));
+        assertFalse(ALICE.isSameCard(editedAlice));
 
         // same question, same answer, different attributes -> returns true
         editedAlice = new CardBuilder(ALICE).withHint(VALID_HINT_HUSBAND).build();
-        assertTrue(ALICE.equals(editedAlice));
+        assertTrue(ALICE.isSameCard(editedAlice));
     }
 
     @Test

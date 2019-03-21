@@ -76,7 +76,7 @@ public class EditCommand extends Command {
         Card cardToEdit = lastShownList.get(index.getZeroBased());
         Card editedCard = createEditedCard(cardToEdit, editCardDescriptor);
 
-        if (!cardToEdit.equals(editedCard) && model.hasCard(editedCard)) {
+        if (!cardToEdit.isSameCard(editedCard) && model.hasCard(editedCard)) {
             throw new CommandException(MESSAGE_DUPLICATE_CARD);
         }
 
